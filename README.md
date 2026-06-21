@@ -1,20 +1,20 @@
 # Certificate Expiry Monitoring Toolkit
 
-A read-only PowerShell toolkit for local certificate inventory and expiry reporting.
+Created by **Dewald Pretorius**.
 
-## Features
+A PowerShell 5.1 toolkit for local certificate inventory, expiry reporting, and guarded certificate-service recovery.
 
-- Local machine certificate inventory
-- Expiry threshold reporting
-- Certificate subject, issuer, store, and thumbprint context
-- CSV, JSON, and HTML reports
+## Files
 
-## How to run
+- `Certificate_Expiry_Monitoring_Toolkit.ps1` — read-only certificate inventory and expiry reports.
+- `Repair.ps1` — captures evidence, starts Cryptographic Services, or downloads the current Windows Update root-certificate list to an SST file.
 
 ```powershell
-powershell.exe -ExecutionPolicy Bypass -File .\Certificate_Expiry_Monitoring_Toolkit.ps1
+.\Repair.ps1 -Action Diagnose
+.\Repair.ps1 -Action StartCryptographicServices -WhatIf
+.\Repair.ps1 -Action RefreshRootCertificateList -Confirm
 ```
 
-## Safety
+Repair actions require elevation. The workflow does not delete, renew, replace, import, or export personal certificates or private keys. Root-list refresh requires access to Windows Update and saves the resulting SST file in the output directory.
 
-Diagnostic-only. It does not import, export, renew, or remove certificates.
+Source-reviewed for Windows PowerShell 5.1; not runtime-tested against every PKI, proxy, or Windows configuration.
